@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/layout";
 import Sidebar from "./Sidebar";
+import BottomPlayer from "./BottomPlayer";
 
 export interface PlayerLayoutProps {}
 
@@ -27,7 +28,7 @@ const PlayerLayout = ({ children }) => {
         height="100px"
         backgroundColor="blue"
       >
-        player
+        <BottomPlayer />
       </Box>
     </Box>
   );
