@@ -36,6 +36,7 @@ const Sidebar = () => {
       bg="black"
       paddingX="5px"
       color="gray"
+      overflow="auto"
     >
       <Box paddingY="20px">
         <Box width="120px" marginBottom="20px" paddingX="20px">
