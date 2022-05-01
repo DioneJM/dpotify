@@ -44,10 +44,10 @@ model Playlist {
     id Int @id @default(autoincrement())
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
-    name String @unique
+    name String
     songs Song[]
-    user User? @relation(fields: [userId], references: [id])
-    userId Int?
+    user User @relation(fields: [userId], references: [id])
+    userId Int
 }
 model Album {
     id Int @id @default(autoincrement())
