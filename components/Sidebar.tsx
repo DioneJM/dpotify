@@ -6,7 +6,6 @@ import {
   LinkBox,
   LinkOverlay,
   List,
-  ListIcon,
   ListItem,
 } from "@chakra-ui/layout";
 import {
@@ -16,6 +15,7 @@ import {
   MdPlaylistAdd,
   MdSearch,
 } from "react-icons/md";
+import MenuItemLink from "./MenuItemLink";
 
 const navMenu = [
   {
@@ -67,18 +67,9 @@ const Sidebar = () => {
           <List spacing={2}>
             {navMenu.map((menuItem) => {
               return (
-                <ListItem paddingX="20px">
+                <ListItem paddingX="20px" key={menuItem.name}>
                   <LinkBox>
-                    <NextLink href={menuItem.route} passHref>
-                      <LinkOverlay>
-                        <ListIcon
-                          as={menuItem.icon}
-                          color="white"
-                          marginRight="20px"
-                        />
-                        {menuItem.name}
-                      </LinkOverlay>
-                    </NextLink>
+                    <MenuItemLink item={menuItem} />
                   </LinkBox>
                 </ListItem>
               );
@@ -92,16 +83,7 @@ const Sidebar = () => {
               return (
                 <ListItem paddingX="20px" fontSize="16px" key={item.name}>
                   <LinkBox>
-                    <NextLink href={item.route} passHref>
-                      <LinkOverlay>
-                        <ListIcon
-                          as={item.icon}
-                          color="white"
-                          marginRight="20px"
-                        />
-                        {item.name}
-                      </LinkOverlay>
-                    </NextLink>
+                    <MenuItemLink item={item} />
                   </LinkBox>
                 </ListItem>
               );
