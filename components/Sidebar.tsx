@@ -43,14 +43,12 @@ const musicMenu = [
   },
   {
     name: "Favourites",
-    icon: MdFavorite,
     route: "/favourites",
   },
 ];
 
-const playlists = new Array(30).fill(1).map((_, i) => `Playlist ${i + 1}`);
-
 const Sidebar = () => {
+  const playlists = [];
   return (
     <Box
       width="100%"
