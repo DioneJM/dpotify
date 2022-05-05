@@ -9,7 +9,6 @@ import {
   ListItem,
 } from "@chakra-ui/layout";
 import {
-  MdFavorite,
   MdHome,
   MdLibraryMusic,
   MdPlaylistAdd,
