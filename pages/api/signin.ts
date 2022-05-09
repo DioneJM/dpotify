@@ -4,16 +4,12 @@ import prisma from "../../lib/prisma";
 import { generateSignedJwtFor, setJwtCookie } from "../auth/jwt";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const salt = bcrypt.genSaltSync();
   const { email, password } = req.body;
-
   let user;
-
   try {
-    user = await prisma.user.create({
-      data: {
+    user = await prisma.user.findUnique({
+      where: {
         email,
-        password: bcrypt.hashSync(password, salt),
       },
     });
   } catch (e) {
@@ -22,7 +18,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.json({ error: "Signup Failed" });
   }
 
-  const token = generateSignedJwtFor(user);
-  setJwtCookie(token, res);
-  res.json(user);
+  if (!user) {
+    res.status(401);
+    res.json({ error: "Failed to login with provided credentials" });
+  } else if (bcrypt.compareSync(password, user.password)) {
+    const token = generateSignedJwtFor(user);
+    setJwtCookie(token, res);
+    res.json(user);
+  }
 };
