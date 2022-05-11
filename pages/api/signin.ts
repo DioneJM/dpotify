@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import prisma from "../../lib/prisma";
-import { generateSignedJwtFor, setJwtCookie } from "../auth/jwt";
+import { generateSignedJwtFor, setJwtCookie } from "../../lib/auth/jwt";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { email, password } = req.body;

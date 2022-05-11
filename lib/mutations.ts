@@ -5,6 +5,8 @@ export interface Credentials {
   password: string;
 }
 
-export const auth = (mode: "signin" | "signup", body: Credentials) => {
+export type AuthMode = "signin" | "signup";
+
+export const auth = (mode: AuthMode, body: Credentials) => {
   return fetcher(`/${mode}`, body);
 };
