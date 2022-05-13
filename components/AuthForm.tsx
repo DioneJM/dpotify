@@ -25,9 +25,6 @@ const AuthForm: FC<AuthFormProps> = ({ mode }) => {
     setIsLoading(false);
     if (response.status === 200) {
       await router.push("/");
-      console.log("response: ", response);
-    } else {
-      console.log("failed to authenticate: ", response);
     }
   };
   return (
