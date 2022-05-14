@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import prisma from "../../lib/prisma";
-import { generateSignedJwtFor, setJwtCookie } from "../../lib/auth/jwt";
+import { generateSignedJwtFor, setJwtCookie } from "../../lib/jwt";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const salt = bcrypt.genSaltSync();
