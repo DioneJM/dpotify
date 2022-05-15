@@ -23,7 +23,7 @@ const AuthForm: FC<AuthFormProps> = ({ mode }) => {
       password,
     });
     setIsLoading(false);
-    if (response.status === 200) {
+    if (response.email === email) {
       await router.push("/");
     }
   };

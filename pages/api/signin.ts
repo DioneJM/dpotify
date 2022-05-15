@@ -24,6 +24,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } else if (bcrypt.compareSync(password, user.password)) {
     const token = generateSignedJwtFor(user);
     setJwtCookie(token, res);
-    res.json(user);
+    res.json({ email: user.email });
   }
 };
