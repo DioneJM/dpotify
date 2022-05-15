@@ -25,6 +25,7 @@ export const validateRoute = (handler) => {
         throw new Error("Not real user");
       }
     } catch (e) {
+      console.log("Failed to verify token");
       res.status(401);
       res.json({ error: "Not authorised" });
       return;
