@@ -15,6 +15,7 @@ import {
   MdSearch,
 } from "react-icons/md";
 import MenuItemLink from "./MenuItemLink";
+import { usePlaylist } from "../lib/hooks";
 
 const navMenu = [
   {
@@ -47,7 +48,7 @@ const musicMenu = [
 ];
 
 const Sidebar = () => {
-  const playlists = [];
+  const { playlists } = usePlaylist();
   return (
     <Box
       width="100%"
@@ -91,10 +92,10 @@ const Sidebar = () => {
         <Box height="66%" overflow="auto" paddingY="20px" paddingX="20px">
           <List spacing={2}>
             {playlists.map((list) => (
-              <ListItem key={list}>
+              <ListItem key={list.id}>
                 <LinkBox>
                   <NextLink href="/">
-                    <LinkOverlay>{list}</LinkOverlay>
+                    <LinkOverlay>{list.name}</LinkOverlay>
                   </NextLink>
                 </LinkBox>
               </ListItem>

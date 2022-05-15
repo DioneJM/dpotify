@@ -16,7 +16,7 @@ export const validateRoute = (handler) => {
 
     let user;
     try {
-      const id: string = jwt.verify(token, secret) as string;
+      const { id } = jwt.verify(token, secret) as string;
       console.log("id: ", id);
       user = await prisma.user.findUnique({
         where: { id: parseInt(id, 10) },
@@ -25,7 +25,7 @@ export const validateRoute = (handler) => {
         throw new Error("Not real user");
       }
     } catch (e) {
-      console.log("Failed to verify token");
+      console.log("Failed to verify token: ", JSON.stringify(e));
       res.status(401);
       res.json({ error: "Not authorised" });
       return;
