@@ -1,3 +1,4 @@
+// @ts-ignore
 function fetcher<Data>(url: string, data = undefined): Promise<Response<Data>> {
   return fetch(`${window.location.origin}/api${url}`, {
     method: data ? "POST" : "GET",
