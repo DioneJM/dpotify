@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import { secret } from "./jwt";
+import { JwtToken, secret } from "./jwt";
 import prisma from "./prisma";
 
 export const validateRoute = (handler) => {
@@ -16,10 +16,10 @@ export const validateRoute = (handler) => {
 
     let user;
     try {
-      const { id } = jwt.verify(token, secret) as string;
+      const { id } = jwt.verify(token, secret) as JwtToken;
       console.log("id: ", id);
       user = await prisma.user.findUnique({
-        where: { id: parseInt(id, 10) },
+        where: { id },
       });
       if (!user) {
         throw new Error("Not real user");

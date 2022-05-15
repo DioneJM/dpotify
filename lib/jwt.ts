@@ -4,6 +4,11 @@ import { NextApiResponse } from "next";
 import cookie from "cookie";
 
 export const secret = "secret_hello";
+export interface JwtToken {
+  email: string;
+  id: number;
+  signdOn: string;
+}
 
 export const generateSignedJwtFor = (user: User) => {
   return jwt.sign(
