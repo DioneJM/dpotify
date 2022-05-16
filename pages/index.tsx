@@ -1,10 +1,19 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import GradientLayout from "../components/GradientLayout";
 
 const Home: NextPage = () => {
-  return <div>Content</div>;
+  return (
+    <GradientLayout
+      color="green"
+      title="hi title"
+      subtitle="the best album in the game"
+      description="some album I made"
+      imageSrc="https://geekhack.org/index.php?action=dlattach;attach=89492;type=avatar"
+      roundImage
+    >
+      <div>Content</div>
+    </GradientLayout>
+  );
 };
 
 export default Home;
