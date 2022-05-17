@@ -45,7 +45,7 @@ const GradientLayout: FC<GradientLayoutProps> = ({
           <Text fontSize="xs">{description}</Text>
         </Box>
       </Flex>
-      {children}
+      <Box paddingY="50px">{children}</Box>
     </Box>
   );
 };
