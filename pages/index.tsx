@@ -17,7 +17,7 @@ const Home: FC<ServerSideProps> = ({ artists }) => {
     <GradientLayout
       color={color}
       title={fullName}
-      subtitle="the best album in the game"
+      subtitle={`${user?.playlistCount ?? "..."} public playlists`}
       description="some album I made"
       imageSrc="https://geekhack.org/index.php?action=dlattach;attach=89492;type=avatar"
       roundImage
