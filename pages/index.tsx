@@ -3,17 +3,20 @@ import GradientLayout from "../components/GradientLayout";
 import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import { Artist } from "@prisma/client";
 import { FC } from "react";
+import { useMe } from "../lib/hooks";
 
 interface ServerSideProps {
   artists: Artist[];
 }
 
 const Home: FC<ServerSideProps> = ({ artists }) => {
+  const { user, isLoading } = useMe();
   const color = "purple";
+  const fullName = isLoading ? "..." : `Hi ${user.firstName} ${user.lastName}`;
   return (
     <GradientLayout
       color={color}
-      title="hi title"
+      title={fullName}
       subtitle="the best album in the game"
       description="some album I made"
       imageSrc="https://geekhack.org/index.php?action=dlattach;attach=89492;type=avatar"
