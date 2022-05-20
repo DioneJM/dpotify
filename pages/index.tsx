@@ -9,7 +9,7 @@ interface ServerSideProps {
   artists: Artist[];
 }
 
-const Home: FC<ServerSideProps> = ({ artists }) => {
+const Home: FC<ServerSideProps> = ({ artists = [] }) => {
   const { user, isLoading } = useMe();
   const color = "purple";
   const fullName = isLoading ? "..." : `Hi ${user.firstName} ${user.lastName}`;
@@ -58,7 +58,7 @@ export const getServerSideProps = async (): Promise<{
   const artists = await prisma.artist.findMany({});
 
   return {
-    props: { artists },
+    props: { artists: artists ?? [] },
   };
 };
 
