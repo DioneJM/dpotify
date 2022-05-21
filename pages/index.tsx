@@ -11,7 +11,7 @@ interface ServerSideProps {
 
 const Home: FC<ServerSideProps> = ({ artists = [] }) => {
   const { user, isLoading } = useMe();
-  const color = "purple";
+  const color = "green";
   const fullName = isLoading ? "..." : `Hi ${user.firstName} ${user.lastName}`;
   return (
     <GradientLayout
