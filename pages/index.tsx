@@ -30,7 +30,7 @@ const Home: FC<ServerSideProps> = ({ artists = [] }) => {
           <Text fontSize="md">only visible to you</Text>
         </Box>
         <Flex justify={"center"}>
-          {artists.map((artist) => (
+          {artists?.map((artist) => (
             <Box paddingX="10px" width="20%" height={"20%"}>
               <Box
                 bg={`${color}.900`}
