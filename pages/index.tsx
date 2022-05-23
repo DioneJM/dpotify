@@ -38,7 +38,10 @@ const Home: FC<ServerSideProps> = ({ artists = [] }) => {
                 padding="15px"
                 width="100%"
               >
-                <Image src="https://placedog.net/300/300" borderRadius="100%" />
+                <Image
+                  src="https://placekitten.com/300/300"
+                  borderRadius="100%"
+                />
                 <Box marginTop="10px">
                   <Text>{artist.name}</Text>
                   <Text>{"Artist"}</Text>
