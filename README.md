@@ -10,7 +10,7 @@ yarn install
 
 Setup database:
 
-TODO
+Follow the setup instructions on seed https://www.prisma.io/docs/concepts/components/prisma-client
 
 Run the development server:
 
