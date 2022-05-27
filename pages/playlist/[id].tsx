@@ -8,7 +8,6 @@ interface ServerSideProps {
 }
 
 const PlaylistId = ({ playlist }) => {
-  console.log("playlist: ", playlist);
   return <div>playlist</div>;
 };
 
@@ -18,7 +17,6 @@ export const getServerSideProps = async ({
 }): Promise<{
   props: ServerSideProps;
 }> => {
-  console.log("req: ", { query });
   const { id: userId } = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
   const [playlist] = await prisma.playlist.findMany({
     where: {

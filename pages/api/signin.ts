@@ -13,7 +13,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
     });
   } catch (e) {
-    console.log("failed to create user: ", e);
     res.status(401);
     res.json({ error: "Signup Failed" });
   }
