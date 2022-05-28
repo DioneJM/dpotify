@@ -7,7 +7,7 @@ interface ServerSideProps {
   playlist: Playlist;
 }
 
-const PlaylistId = ({ playlist }) => {
+const PlaylistId = ({ playlist }: ServerSideProps) => {
   return <div>playlist</div>;
 };
 
