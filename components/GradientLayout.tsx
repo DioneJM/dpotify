@@ -3,22 +3,22 @@ import { Box, Flex, Text, Image } from "@chakra-ui/react";
 
 export interface GradientLayoutProps {
   title: string;
-  subtitle: string;
-  imageSrc: string;
-  description: string;
-  color: string;
-  roundImage: boolean;
-  children: any;
+  color?: string;
+  subtitle?: string;
+  imageSrc?: string;
+  description?: string;
+  roundImage?: boolean;
+  children?: any;
 }
 
 const GradientLayout: FC<GradientLayoutProps> = ({
   title,
-  subtitle,
-  description,
-  imageSrc,
-  roundImage,
-  color,
-  children,
+  color = "green",
+  subtitle = undefined,
+  description = undefined,
+  imageSrc = undefined,
+  roundImage = undefined,
+  children = undefined,
 }) => {
   return (
     <Box
