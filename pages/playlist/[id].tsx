@@ -1,14 +1,32 @@
-import { Playlist } from "@prisma/client";
+import { Playlist, Song } from "@prisma/client";
+import { Box, Text } from "@chakra-ui/react";
 import prisma from "../../lib/prisma";
-import { Simulate } from "react-dom/test-utils";
 import { validateToken } from "../../lib/auth";
+import GradientLayout from "../../components/GradientLayout";
 
 interface ServerSideProps {
-  playlist: Playlist;
+  playlist: Playlist & { songs: Song[] };
 }
 
 const PlaylistId = ({ playlist }: ServerSideProps) => {
-  return <div>playlist</div>;
+  return (
+    <GradientLayout
+      title={playlist.name}
+      imageSrc="https://placedog.net/300/300"
+    >
+      <Box paddingX="40px">
+        {playlist.songs?.map((song) => (
+          <Box color="white" paddingY={"8px"}>
+            <Box bg="green.800">
+              <Text>{song.name}</Text>
+              <Text>{song.artist.name}</Text>
+              <Text>{song.url}</Text>
+            </Box>
+          </Box>
+        ))}
+      </Box>
+    </GradientLayout>
+  );
 };
 
 export const getServerSideProps = async ({
