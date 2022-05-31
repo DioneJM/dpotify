@@ -18,9 +18,14 @@ const PlaylistId = ({ playlist }: ServerSideProps) => {
         {playlist.songs?.map((song) => (
           <Box color="white" paddingY={"8px"}>
             <Box bg="green.800">
-              <Text>{song.name}</Text>
-              <Text>{song.artist.name}</Text>
+              <Text fontSize="2xl" fontWeight="bold">
+                {song.name}
+              </Text>
+              <Text fontSize="md">{song.artist.name}</Text>
               <Text>{song.url}</Text>
+              <audio controls>
+                <source src={song.url} />
+              </audio>
             </Box>
           </Box>
         ))}
