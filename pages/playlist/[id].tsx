@@ -8,16 +8,35 @@ interface ServerSideProps {
   playlist: Playlist & { songs: Song[] };
 }
 
+const getBGColor = (id) => {
+  const colors = [
+    "red",
+    "green",
+    "blue",
+    "orange",
+    "purple",
+    "gray",
+    "teal",
+    "yellow",
+  ];
+
+  return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)];
+};
+
 const PlaylistId = ({ playlist }: ServerSideProps) => {
+  const color = getBGColor(playlist.id);
   return (
     <GradientLayout
       title={playlist.name}
-      imageSrc="https://placedog.net/300/300"
+      subtitle="playlist"
+      description={`${playlist.songs.length} songs`}
+      color={color}
+      imageSrc={`https://picsum.photos/400?random=${playlist.id}`}
     >
       <Box paddingX="40px">
         {playlist.songs?.map((song) => (
           <Box color="white" paddingY={"8px"}>
-            <Box bg="green.800">
+            <Box bg={`${color}.800`}>
               <Text fontSize="2xl" fontWeight="bold">
                 {song.name}
               </Text>
