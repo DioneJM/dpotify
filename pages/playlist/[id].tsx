@@ -3,6 +3,7 @@ import { Box, Text } from "@chakra-ui/react";
 import prisma from "../../lib/prisma";
 import { validateToken } from "../../lib/auth";
 import GradientLayout from "../../components/GradientLayout";
+import SongsTable from "../../components/SongsTable";
 
 interface ServerSideProps {
   playlist: Playlist & { songs: Song[] };
@@ -34,6 +35,7 @@ const PlaylistId = ({ playlist }: ServerSideProps) => {
       imageSrc={`https://picsum.photos/400?random=${playlist.id}`}
     >
       <Box paddingX="40px">
+        <SongsTable songs={playlist.songs} />
         {playlist.songs?.map((song) => (
           <Box color="white" paddingY={"8px"}>
             <Box bg={`${color}.800`}>
