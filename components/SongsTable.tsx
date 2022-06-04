@@ -57,14 +57,18 @@ const SongsTable = ({ songs }) => {
                     boxSize="40px"
                     src={`https://picsum.photos/400?random=${song.id}`}
                   />
-                  <Text fontSize="md">{song.name}</Text>
+                  <Text fontSize="sm" fontWeight="700">
+                    {song.name}
+                  </Text>
                   <Text fontSize="xs" fontWeight="300">
                     {song.artist.name}
                   </Text>
                 </Box>
               </Th>
-              <Th fontSize="md">{getNumberOfDaysString(song.createdAt)}</Th>
-              <Th>{secondsToMinutes(song.duration)}</Th>
+              <Th fontSize="xs" fontWeight="300">
+                {getNumberOfDaysString(song.createdAt)}
+              </Th>
+              <Th fontWeight="300">{secondsToMinutes(song.duration)}</Th>
             </Tr>
           );
         })}
