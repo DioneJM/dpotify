@@ -16,6 +16,7 @@ import {
 } from "react-icons/md";
 import MenuItemLink from "./MenuItemLink";
 import { usePlaylist } from "../lib/hooks";
+import { bottomPlayerHeight } from "./PlayerLayout";
 
 const navMenu = [
   {
@@ -83,7 +84,13 @@ const Sidebar = () => {
           </List>
         </Box>
         <Divider marginY="20px" color="gray.800" />
-        <Box height="66%" overflow="auto" paddingY="20px" paddingX="20px">
+        <Box
+          height="66%"
+          overflow="auto"
+          paddingX="20px"
+          paddingTop="20px"
+          paddingBottom={bottomPlayerHeight}
+        >
           <List spacing={2}>
             {playlists?.map((list) => (
               <ListItem key={list.id}>

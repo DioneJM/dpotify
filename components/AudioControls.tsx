@@ -10,7 +10,7 @@ import {
   RangeSliderTrack,
   Text,
 } from "@chakra-ui/react";
-import { useStore, useStoreActions } from "easy-peasy";
+import { useStoreActions } from "easy-peasy";
 import ReactHowler from "react-howler";
 import {
   MdOutlinePauseCircleFilled,
@@ -20,30 +20,16 @@ import {
   MdSkipNext,
   MdSkipPrevious,
 } from "react-icons/md";
-import { FC, useCallback, useEffect, useState, useRef } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { Song } from "@prisma/client";
 import { ApplicationState } from "../lib/store";
 import { secondsToMinutes } from "../lib/timeFormatter";
+import { shuffleSongs } from "../lib/shuffle";
 
 interface AudioControlsProps {
   songs: Song[];
   activeSong: Song;
 }
-
-const shuffleSongs = (songsToShuffle: Song[]) => {
-  const shuffledSongs = [...songsToShuffle];
-  // Fisher Method shuffle
-  let j;
-  let x;
-  let index;
-  for (index = shuffledSongs.length - 1; index > 0; index -= 1) {
-    j = Math.floor(Math.random() * (index + 1));
-    x = shuffledSongs[index];
-    shuffledSongs[index] = shuffledSongs[j];
-    shuffledSongs[j] = x;
-  }
-  return shuffledSongs;
-};
 
 const AudioControls: FC<AudioControlsProps> = ({
   songs = [],
