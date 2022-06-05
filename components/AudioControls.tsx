@@ -55,7 +55,7 @@ const AudioControls: FC<AudioControlsProps> = ({
     setPlaylistSongIndex(
       playlist.findIndex((song) => song.id === activeSong.id)
     );
-  }, [playlist]);
+  }, [playlist, setPlaylistSongIndex]);
   const soundRef = useRef<ReactHowler>(null);
   const [playing, setPlaying] = useState(true);
   const [seek, setSeek] = useState(0);
@@ -71,7 +71,7 @@ const AudioControls: FC<AudioControlsProps> = ({
       setPlaylistSongIndex((index) =>
         index + 1 > playlist.length - 1 ? 0 : index + 1
       ),
-    []
+    [playlist.length]
   );
   const onPreviousSong = useCallback(
     () => setPlaylistSongIndex((index) => Math.max(index - 1, 0)),
