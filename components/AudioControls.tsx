@@ -42,6 +42,7 @@ const AudioControls: FC<AudioControlsProps> = ({
   const [seek, setSeek] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
   const [repeat, setRepeat] = useState(false);
+  const repeatRef = useRef(repeat);
   const [shuffle, setShuffle] = useState(false);
   const [duration, setDuration] = useState(0);
   const togglePlay = useCallback(() => setPlaying((state) => !state), []);
@@ -64,8 +65,12 @@ const AudioControls: FC<AudioControlsProps> = ({
     setActiveSong(songs[songIndex]);
   }, [songIndex]);
 
+  useEffect(() => {
+    repeatRef.current = repeat;
+  }, [repeat]);
+
   const onEnd = () => {
-    if (repeat) {
+    if (repeatRef.current) {
       setSeek(0);
       soundRef?.current?.seek(0);
     } else {
@@ -85,7 +90,7 @@ const AudioControls: FC<AudioControlsProps> = ({
     let timerId;
     if (playing && !isSeeking) {
       const updateSeek = () => {
-        setSeek(soundRef.current.seek());
+        setSeek(soundRef?.current?.seek() ?? 0);
         timerId = requestAnimationFrame(updateSeek);
       };
       timerId = requestAnimationFrame(updateSeek);
