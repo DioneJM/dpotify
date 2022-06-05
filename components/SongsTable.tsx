@@ -7,6 +7,7 @@ import {
   Tr,
   Image,
   Text,
+  Tbody,
 } from "@chakra-ui/react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
@@ -15,10 +16,10 @@ import { Song } from "@prisma/client";
 const SongsTable = ({ songs }) => {
   const getNumberOfDaysString = (createdAtDate: Date) => {
     const daysSinceAdded: number =
-      new Date().getDate() - createdAtDate.getDate();
+      createdAtDate.getDate() - new Date().getDate();
     const daysSinceAddedAbsolute = Math.abs(daysSinceAdded);
 
-    return `${daysSinceAddedAbsolute} days go`;
+    return `${daysSinceAddedAbsolute} days ago`;
   };
 
   const secondsToMinutes = (amountInSeconds: number): string => {
@@ -47,31 +48,33 @@ const SongsTable = ({ songs }) => {
             <Th>{<AiOutlineClockCircle />}</Th>
           </Tr>
         </Thead>
-        {songs.map((song: Song, index) => {
-          return (
-            <Tr>
-              <Th>{index + 1}</Th>
-              <Th>
-                <Box flexDirection="row">
-                  <Image
-                    boxSize="40px"
-                    src={`https://picsum.photos/400?random=${song.id}`}
-                  />
-                  <Text fontSize="sm" fontWeight="700">
-                    {song.name}
-                  </Text>
-                  <Text fontSize="xs" fontWeight="300">
-                    {song.artist.name}
-                  </Text>
-                </Box>
-              </Th>
-              <Th fontSize="xs" fontWeight="300">
-                {getNumberOfDaysString(song.createdAt)}
-              </Th>
-              <Th fontWeight="300">{secondsToMinutes(song.duration)}</Th>
-            </Tr>
-          );
-        })}
+        <Tbody>
+          {songs.map((song: Song, index) => {
+            return (
+              <Tr
+                sx={{
+                  transition: "all .3s",
+                  "&:hover": {
+                    bg: "rgba(255, 255, 255, 0.1",
+                  },
+                }}
+                cursor="cursor"
+                key={song.id}
+              >
+                <Th fontWeight="400">{index + 1}</Th>
+                <Th fontWeight="400">{song.artist.name}</Th>
+                <Th fontSize="xs" fontWeight="300">
+                  {song.createdAt.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }) + ` (${getNumberOfDaysString(song.createdAt)})`}
+                </Th>
+                <Th fontWeight="300">{secondsToMinutes(song.duration)}</Th>
+              </Tr>
+            );
+          })}
+        </Tbody>
       </Table>
     </Box>
   );
