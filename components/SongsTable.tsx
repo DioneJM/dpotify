@@ -1,9 +1,10 @@
-import { Box, IconButton, Table, Th, Thead, Tr, Tbody } from "@chakra-ui/react";
+import { Box, IconButton, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { Song } from "@prisma/client";
 import { useStoreActions } from "easy-peasy";
 import { ApplicationState } from "../lib/store";
+import { secondsToMinutes } from "../lib/timeFormatter";
 
 const getNumberOfDaysString = (createdAtDate: Date) => {
   const daysSinceAdded: number =
@@ -11,13 +12,6 @@ const getNumberOfDaysString = (createdAtDate: Date) => {
   const daysSinceAddedAbsolute = Math.round(daysSinceAdded);
 
   return `${daysSinceAddedAbsolute} days ago`;
-};
-
-const secondsToMinutes = (amountInSeconds: number): string => {
-  const minutes = Math.floor(amountInSeconds / 60);
-  const seconds: number = amountInSeconds - minutes * 60;
-  const pad = "00";
-  return `${minutes}: ${(seconds.toString() + pad).substring(0, pad.length)}`;
 };
 
 const SongsTable = ({ songs = [] }) => {
