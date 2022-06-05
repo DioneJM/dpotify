@@ -64,13 +64,10 @@ const SongsTable = ({ songs = [] }) => {
                 }}
                 cursor="pointer"
                 key={song.id}
-                onClick={() => {
-                  console.log("colicked");
-                  handlePlay(song);
-                }}
+                onClick={() => handlePlay(song)}
               >
                 <Th fontWeight="400">{index + 1}</Th>
-                <Th fontWeight="400">{song.artist.name}</Th>
+                <Th fontWeight="400">{song.name}</Th>
                 <Th fontSize="xs" fontWeight="300">
                   {`${song.createdAt.toLocaleDateString("en-US", {
                     year: "numeric",

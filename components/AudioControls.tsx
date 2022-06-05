@@ -20,8 +20,9 @@ import {
   MdSkipNext,
   MdSkipPrevious,
 } from "react-icons/md";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useState, useRef } from "react";
 import { Song } from "@prisma/client";
+import { ApplicationState } from "../lib/store";
 
 interface AudioControlsProps {
   songs: Song[];
@@ -32,8 +33,6 @@ const AudioControls: FC<AudioControlsProps> = ({
   songs = [],
   activeSong = {},
 }) => {
-  console.log("songs: ", activeSong);
-  console.log("active song: ", activeSong);
   const [playing, setPlaying] = useState(true);
   const [songIndex, setSongIndex] = useState(
     songs.findIndex((song) => song.id === activeSong.id)
@@ -45,6 +44,23 @@ const AudioControls: FC<AudioControlsProps> = ({
   const togglePlay = useCallback(() => setPlaying((state) => !state), []);
   const onRepeat = useCallback(() => setRepeat((state) => !state), []);
   const onShuffle = useCallback(() => setShuffle((state) => !state), []);
+  const onNextSong = useCallback(
+    () => setSongIndex((index) => Math.min(index + 1, songs.length)),
+    []
+  );
+  const onPreviousSong = useCallback(
+    () => setSongIndex((index) => Math.max(index - 1, 0)),
+    []
+  );
+  const setActiveSong = useStoreActions<ApplicationState>(
+    (store) => store.changeActiveSong
+  );
+
+  useEffect(() => {
+    setActiveSong(songs[songIndex]);
+  }, [songIndex]);
+
+  const soundRef = useRef<ReactHowler>(null);
   const playButton = playing ? (
     <IconButton
       icon={<MdOutlinePauseCircleFilled />}
@@ -70,7 +86,7 @@ const AudioControls: FC<AudioControlsProps> = ({
   return (
     <Box>
       <Box>
-        <ReactHowler playing={playing} src={activeSong?.url} />
+        <ReactHowler playing={playing} src={activeSong?.url} ref={soundRef} />
       </Box>
       <Center color="gray.600">
         <ButtonGroup>
@@ -89,6 +105,7 @@ const AudioControls: FC<AudioControlsProps> = ({
             aria-label="previous"
             outline="none"
             variant="link"
+            onClick={onPreviousSong}
           />
           {playButton}
           <IconButton
@@ -97,6 +114,7 @@ const AudioControls: FC<AudioControlsProps> = ({
             aria-label="next"
             outline="none"
             variant="link"
+            onClick={onNextSong}
           />
           <IconButton
             icon={<MdOutlineRepeat />}
