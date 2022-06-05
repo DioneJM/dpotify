@@ -13,7 +13,7 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { Song } from "@prisma/client";
 
-const SongsTable = ({ songs }) => {
+const SongsTable = ({ songs = [] }) => {
   const getNumberOfDaysString = (createdAtDate: Date) => {
     const daysSinceAdded: number =
       createdAtDate.getDate() - new Date().getDate();
@@ -66,7 +66,7 @@ const SongsTable = ({ songs }) => {
                 <Th fontSize="xs" fontWeight="300">
                   {song.createdAt.toLocaleDateString("en-US", {
                     year: "numeric",
-                    month: "long",
+                    month: "short",
                     day: "numeric",
                   }) + ` (${getNumberOfDaysString(song.createdAt)})`}
                 </Th>
