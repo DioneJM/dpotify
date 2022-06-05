@@ -54,11 +54,11 @@ const SongsTable = ({ songs = [] }) => {
                 <Th fontWeight="400">{index + 1}</Th>
                 <Th fontWeight="400">{song.artist.name}</Th>
                 <Th fontSize="xs" fontWeight="300">
-                  {song.createdAt.toLocaleDateString("en-US", {
+                  {`${song.createdAt.toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
-                  }) + ` (${getNumberOfDaysString(song.createdAt)})`}
+                  })} (${getNumberOfDaysString(song.createdAt)})`}
                 </Th>
                 <Th fontWeight="300">{secondsToMinutes(song.duration)}</Th>
               </Tr>
