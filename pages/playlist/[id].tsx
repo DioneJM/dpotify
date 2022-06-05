@@ -1,5 +1,5 @@
 import { Playlist, Song } from "@prisma/client";
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import prisma from "../../lib/prisma";
 import { validateToken } from "../../lib/auth";
 import GradientLayout from "../../components/GradientLayout";
@@ -47,6 +47,7 @@ export const getServerSideProps = async ({
 }): Promise<{
   props: ServerSideProps;
 }> => {
+  // @ts-ignore
   const { id: userId } = validateToken(req.cookies.TRAX_ACCESS_TOKEN);
   const [playlist] = await prisma.playlist.findMany({
     where: {

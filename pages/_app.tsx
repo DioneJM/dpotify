@@ -1,9 +1,9 @@
 import "../styles/globals.css";
+import { FC } from "react";
 import type { AppProps } from "next/app";
+import { StoreProvider } from "easy-peasy";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import PlayerLayout from "../components/PlayerLayout";
-import { FC } from "react";
-import { StoreProvider } from "easy-peasy";
 import { store } from "../lib/store";
 
 const theme = extendTheme({
@@ -36,11 +36,15 @@ const theme = extendTheme({
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ChakraProvider theme={theme}>
+      {/* @ts-ignore */}
       <StoreProvider store={store}>
+        {/* @ts-ignore */}
         {Component.authPage ? (
+          // @ts-ignore
           <Component {...pageProps} />
         ) : (
           <PlayerLayout>
+            {/* @ts-ignore */}
             <Component {...pageProps} />
           </PlayerLayout>
         )}
