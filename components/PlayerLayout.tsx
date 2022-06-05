@@ -25,12 +25,11 @@ const PlayerLayout = ({ children }) => {
         {children}
       </Box>
       <Box
-        position="fixed"
+        position="absolute"
         left="0"
         bottom="0"
         width="100vw"
         height={bottomPlayerHeight}
-        backgroundColor="blue"
       >
         <BottomPlayer />
       </Box>
