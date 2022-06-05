@@ -100,7 +100,7 @@ const Sidebar = () => {
                       query: { id: list.id },
                     }}
                   >
-                    <LinkOverlay>{list.name}</LinkOverlay>
+                    <LinkOverlay cursor="pointer">{list.name}</LinkOverlay>
                   </NextLink>
                 </LinkBox>
               </ListItem>
