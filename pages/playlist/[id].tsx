@@ -34,22 +34,8 @@ const PlaylistId = ({ playlist }: ServerSideProps) => {
       color={color}
       imageSrc={`https://picsum.photos/400?random=${playlist.id}`}
     >
-      <Box paddingX="40px">
+      <Box paddingX="40px" overflowY="auto">
         <SongsTable songs={playlist.songs} />
-        {playlist.songs?.map((song) => (
-          <Box color="white" paddingY={"8px"}>
-            <Box bg={`${color}.800`}>
-              <Text fontSize="2xl" fontWeight="bold">
-                {song.name}
-              </Text>
-              <Text fontSize="md">{song.artist.name}</Text>
-              <Text>{song.url}</Text>
-              <audio controls>
-                <source src={song.url} />
-              </audio>
-            </Box>
-          </Box>
-        ))}
       </Box>
     </GradientLayout>
   );

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Box, Flex, Text, Image } from "@chakra-ui/react";
+import { bottomPlayerHeight } from "./PlayerLayout";
 
 export interface GradientLayoutProps {
   title: string;
@@ -25,6 +26,7 @@ const GradientLayout: FC<GradientLayoutProps> = ({
       height="100vh"
       overflowY="auto"
       bgGradient={`linear(${color}.500 0%, ${color}.600 15%, ${color}.700 40%, rgba(0,0,0,0.95) 75%)`}
+      paddingBottom={bottomPlayerHeight}
     >
       <Flex bg={`${color}.600`} padding="40px" align="end">
         <Box padding="20px">
