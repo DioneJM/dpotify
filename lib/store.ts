@@ -1,10 +1,11 @@
 import { createStore, action, Action } from "easy-peasy";
 import { Song } from "@prisma/client";
 
-interface ApplicationState {
+export interface ApplicationState {
   activeSongs: Song[];
   activeSong: Song;
-  changeActiveSongs: Action<Song[]>;
+  changeActiveSongs: Action<ApplicationState>;
+  changeActiveSong: Action<ApplicationState>;
 }
 
 export const store = createStore<ApplicationState>({
@@ -12,5 +13,8 @@ export const store = createStore<ApplicationState>({
   activeSong: null,
   changeActiveSongs: action<ApplicationState>((state, payload) => {
     state.activeSongs = payload;
+  }),
+  changeActiveSong: action<ApplicationState>((state, payload) => {
+    state.activeSong = payload;
   }),
 });

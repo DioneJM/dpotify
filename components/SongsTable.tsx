@@ -2,21 +2,34 @@ import { Box, IconButton, Table, Th, Thead, Tr, Tbody } from "@chakra-ui/react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { Song } from "@prisma/client";
+import { useStoreActions } from "easy-peasy";
+import { ApplicationState } from "../lib/store";
+
+const getNumberOfDaysString = (createdAtDate: Date) => {
+  const daysSinceAdded: number =
+    (new Date().getTime() - createdAtDate.getTime()) / (1000 * 60 * 60 * 24);
+  const daysSinceAddedAbsolute = Math.round(daysSinceAdded);
+
+  return `${daysSinceAddedAbsolute} days ago`;
+};
+
+const secondsToMinutes = (amountInSeconds: number): string => {
+  const minutes = Math.floor(amountInSeconds / 60);
+  const seconds: number = amountInSeconds - minutes * 60;
+  const pad = "00";
+  return `${minutes}: ${(seconds.toString() + pad).substring(0, pad.length)}`;
+};
 
 const SongsTable = ({ songs = [] }) => {
-  const getNumberOfDaysString = (createdAtDate: Date) => {
-    const daysSinceAdded: number =
-      createdAtDate.getDate() - new Date().getDate();
-    const daysSinceAddedAbsolute = Math.abs(daysSinceAdded);
-
-    return `${daysSinceAddedAbsolute} days ago`;
-  };
-
-  const secondsToMinutes = (amountInSeconds: number): string => {
-    const minutes = Math.floor(amountInSeconds / 60);
-    const seconds: number = amountInSeconds - minutes * 60;
-    const pad = "00";
-    return `${minutes}: ${(seconds.toString() + pad).substring(0, pad.length)}`;
+  const playSongs = useStoreActions<ApplicationState>(
+    (store) => store.changeActiveSongs
+  );
+  const setActiveSong = useStoreActions<ApplicationState>(
+    (store) => store.changeActiveSong
+  );
+  const handlePlay = (activeSong?: Song) => {
+    setActiveSong(activeSong ?? songs[0]);
+    playSongs(songs);
   };
   return (
     <Box bg="transparent" color="white">
@@ -27,6 +40,7 @@ const SongsTable = ({ songs = [] }) => {
           colorScheme="green"
           isRound
           aria-label="play button"
+          onClick={() => handlePlay()}
         />
       </Box>
       <Table variant="unstyled">
@@ -48,8 +62,12 @@ const SongsTable = ({ songs = [] }) => {
                     bg: "rgba(255, 255, 255, 0.1",
                   },
                 }}
-                cursor="cursor"
+                cursor="pointer"
                 key={song.id}
+                onClick={() => {
+                  console.log("colicked");
+                  handlePlay(song);
+                }}
               >
                 <Th fontWeight="400">{index + 1}</Th>
                 <Th fontWeight="400">{song.artist.name}</Th>
