@@ -2,7 +2,7 @@ import { Box, IconButton, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { Song } from "@prisma/client";
-import { useStoreActions } from "easy-peasy";
+import { useStoreActions, useStoreState } from "easy-peasy";
 import { ApplicationState } from "../lib/store";
 import { secondsToMinutes } from "../lib/timeFormatter";
 
@@ -20,6 +20,9 @@ const SongsTable = ({ songs = [] }) => {
   );
   const setActiveSong = useStoreActions<ApplicationState>(
     (store) => store.changeActiveSong
+  );
+  const activeSong = useStoreState<ApplicationState>(
+    (state) => state.activeSong
   );
   const handlePlay = (activeSong?: Song) => {
     setActiveSong(activeSong ?? songs[0]);
@@ -51,13 +54,18 @@ const SongsTable = ({ songs = [] }) => {
             return (
               <Tr
                 sx={{
-                  transition: "all .3s",
+                  transition: "all .2s",
                   "&:hover": {
                     bg: "rgba(255, 255, 255, 0.1",
                   },
                 }}
                 cursor="pointer"
                 key={song.id}
+                bg={
+                  activeSong?.id === song.id
+                    ? "rgba(255, 255, 255, 0.2)"
+                    : "transparent"
+                }
                 onClick={() => handlePlay(song)}
               >
                 <Th fontWeight="400">{index + 1}</Th>
