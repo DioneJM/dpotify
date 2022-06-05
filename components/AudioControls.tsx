@@ -30,30 +30,65 @@ interface AudioControlsProps {
   activeSong: Song;
 }
 
+const shuffleSongs = (songsToShuffle: Song[]) => {
+  const shuffledSongs = [...songsToShuffle];
+  // Fisher Method shuffle
+  let j;
+  let x;
+  let index;
+  for (index = shuffledSongs.length - 1; index > 0; index -= 1) {
+    j = Math.floor(Math.random() * (index + 1));
+    x = shuffledSongs[index];
+    shuffledSongs[index] = shuffledSongs[j];
+    shuffledSongs[j] = x;
+  }
+  return shuffledSongs;
+};
+
 const AudioControls: FC<AudioControlsProps> = ({
   songs = [],
   activeSong = {},
 }) => {
+  const [shuffle, setShuffle] = useState(false);
+  const [playlist, setPlaylist] = useState(
+    shuffle ? shuffleSongs(songs) : songs
+  );
+  const [playlistSongIndex, setPlaylistSongIndex] = useState(
+    playlist.findIndex((song) => song.id === activeSong.id)
+  );
+
+  useEffect(() => {
+    if (shuffle) {
+      setPlaylist((currentPlaylist) => [...shuffleSongs(currentPlaylist)]);
+    } else {
+      setPlaylist(songs);
+    }
+  }, [shuffle, songs]);
+
+  useEffect(() => {
+    setPlaylistSongIndex(
+      playlist.findIndex((song) => song.id === activeSong.id)
+    );
+  }, [playlist]);
   const soundRef = useRef<ReactHowler>(null);
   const [playing, setPlaying] = useState(true);
-  const [songIndex, setSongIndex] = useState(
-    songs.findIndex((song) => song.id === activeSong.id)
-  );
   const [seek, setSeek] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
   const [repeat, setRepeat] = useState(false);
   const repeatRef = useRef(repeat);
-  const [shuffle, setShuffle] = useState(false);
   const [duration, setDuration] = useState(0);
   const togglePlay = useCallback(() => setPlaying((state) => !state), []);
   const onRepeat = useCallback(() => setRepeat((state) => !state), []);
   const onShuffle = useCallback(() => setShuffle((state) => !state), []);
   const onNextSong = useCallback(
-    () => setSongIndex((index) => Math.min(index + 1, songs.length)),
+    () =>
+      setPlaylistSongIndex((index) =>
+        index + 1 > playlist.length - 1 ? 0 : index + 1
+      ),
     []
   );
   const onPreviousSong = useCallback(
-    () => setSongIndex((index) => Math.max(index - 1, 0)),
+    () => setPlaylistSongIndex((index) => Math.max(index - 1, 0)),
     []
   );
   const onSeeking = useCallback(() => setIsSeeking((state) => !state), []);
@@ -62,8 +97,8 @@ const AudioControls: FC<AudioControlsProps> = ({
   );
 
   useEffect(() => {
-    setActiveSong(songs[songIndex]);
-  }, [songIndex]);
+    setActiveSong(playlist[playlistSongIndex]);
+  }, [playlistSongIndex]);
 
   useEffect(() => {
     repeatRef.current = repeat;
