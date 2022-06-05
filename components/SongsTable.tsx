@@ -1,14 +1,4 @@
-import {
-  Box,
-  IconButton,
-  Table,
-  Th,
-  Thead,
-  Tr,
-  Image,
-  Text,
-  Tbody,
-} from "@chakra-ui/react";
+import { Box, IconButton, Table, Th, Thead, Tr, Tbody } from "@chakra-ui/react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { Song } from "@prisma/client";
