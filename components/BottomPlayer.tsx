@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/layout";
 import { Flex, Text } from "@chakra-ui/react";
+import AudioControls from "./AudioControls";
 
 const BottomPlayer = () => {
   return (
@@ -9,8 +10,8 @@ const BottomPlayer = () => {
           <Text fontSize="lg">Song title</Text>
           <Text fontSize="sm">Artist name</Text>
         </Box>
-        <Box padding="20px" color="white">
-          controls
+        <Box padding="20px" color="white" width="40%">
+          <AudioControls />
         </Box>
         <Box padding="20px" color="white">
           volume
