@@ -30,6 +30,7 @@ const PlayerLayout = ({ children }) => {
         bottom="0"
         width="100vw"
         height={bottomPlayerHeight}
+        overflow="hidden"
       >
         <BottomPlayer />
       </Box>
