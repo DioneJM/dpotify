@@ -9,7 +9,7 @@ import { bottomPlayerHeight } from "../../components/PlayerLayout";
 
 export interface PlaylistServerSideProps {
   playlist: Playlist & { songs: Song[] };
-  user?: any;
+  shared: boolean;
 }
 
 const getBGColor = (id) => {
@@ -27,12 +27,8 @@ const getBGColor = (id) => {
   return colors[id - 1] || colors[Math.floor(Math.random() * colors.length)];
 };
 
-const PlaylistId = ({
-  playlist,
-  user = undefined,
-}: PlaylistServerSideProps) => {
+const PlaylistId = ({ playlist, shared }: PlaylistServerSideProps) => {
   const color = getBGColor(playlist.id);
-  const loggedIn = !!user;
   return (
     <>
       <GradientLayout
@@ -46,7 +42,7 @@ const PlaylistId = ({
           <SongsTable songs={playlist.songs} />
         </Box>
       </GradientLayout>
-      {!loggedIn && (
+      {shared && (
         <Box
           position="absolute"
           left="0"
@@ -64,14 +60,9 @@ const PlaylistId = ({
 
 export const getServerSideProps = async ({
   query,
-  req,
 }): Promise<{
   props: PlaylistServerSideProps;
 }> => {
-  // @ts-ignore
-  const user =
-    req.cookies.TRAX_ACCESS_TOKEN &&
-    validateToken(req.cookies.TRAX_ACCESS_TOKEN);
   const [playlist] = await prisma.playlist.findMany({
     where: {
       id: parseInt(query.id, 10),
@@ -90,7 +81,7 @@ export const getServerSideProps = async ({
     },
   });
   return {
-    props: { playlist, user },
+    props: { playlist, shared: false },
   };
 };
 

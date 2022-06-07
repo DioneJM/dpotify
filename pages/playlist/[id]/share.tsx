@@ -34,7 +34,7 @@ export const getServerSideProps = async ({
     },
   });
   return {
-    props: { playlist, user },
+    props: { playlist, shared: true },
   };
 };
 
