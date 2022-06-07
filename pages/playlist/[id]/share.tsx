@@ -4,6 +4,7 @@ import prisma from "../../../lib/prisma";
 
 const PublicPlaylist = PlaylistId;
 
+// @ts-ignore
 PublicPlaylist.publicPage = true;
 
 export const getServerSideProps = async ({
