@@ -1,7 +1,6 @@
 import { Playlist, Song } from "@prisma/client";
 import { Box } from "@chakra-ui/react";
 import prisma from "../../lib/prisma";
-import { validateToken } from "../../lib/auth";
 import GradientLayout from "../../components/GradientLayout";
 import SongsTable from "../../components/SongsTable";
 import BottomPlayer from "../../components/BottomPlayer";
