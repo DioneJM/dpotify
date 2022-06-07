@@ -39,7 +39,7 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
       {/* @ts-ignore */}
       <StoreProvider store={store}>
         {/* @ts-ignore */}
-        {Component.authPage ? (
+        {Component.publicPage ? (
           // @ts-ignore
           <Component {...pageProps} />
         ) : (

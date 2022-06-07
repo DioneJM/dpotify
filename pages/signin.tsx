@@ -4,6 +4,6 @@ const Signin = () => {
   return <AuthForm mode="signin" />;
 };
 
-Signin.authPage = true;
+Signin.publicPage = true;
 
 export default Signin;

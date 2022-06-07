@@ -4,6 +4,6 @@ const Signup = () => {
   return <AuthForm mode="signup" />;
 };
 
-Signup.authPage = true;
+Signup.publicPage = true;
 
 export default Signup;

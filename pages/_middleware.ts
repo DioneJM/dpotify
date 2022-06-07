@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const signedOutPages = ["/signin", "/signup"];
+const publicPages = ["/signin", "/signup", "/public"];
 
 // We don't take in a response object because this will be run on the edge similar to a web worker
 export default function middleware(req: NextRequest) {
-  const pageRequiresSignIn = !signedOutPages.some((route) =>
+  const pageRequiresSignIn = !publicPages.some((route) =>
     req.nextUrl.pathname.includes(route)
   );
   if (pageRequiresSignIn) {
