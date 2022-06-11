@@ -3,6 +3,7 @@ import { FC } from "react";
 import type { AppProps } from "next/app";
 import { StoreProvider } from "easy-peasy";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
 import PlayerLayout from "../components/PlayerLayout";
 import { store } from "../lib/store";
 
@@ -53,4 +54,4 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   );
 };
 
-export default MyApp;
+export default dynamic(() => Promise.resolve(MyApp), { ssr: false });
