@@ -51,6 +51,10 @@ const BottomPlayer = () => {
   );
   const [mobileLayout] = useMobileLayout();
 
+  if (!activeSong) {
+    return null;
+  }
+
   return (
     <Box height="100%" width="100%" bg="gray.900">
       {mobileLayout ? (
