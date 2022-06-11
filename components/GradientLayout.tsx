@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import { bottomPlayerHeight } from "./PlayerLayout";
+import { useMobileLayout } from "../lib/hooks";
 
 export interface GradientLayoutProps {
   title: string;
@@ -21,6 +22,7 @@ const GradientLayout: FC<GradientLayoutProps> = ({
   roundImage = undefined,
   children = undefined,
 }) => {
+  const [mobileLayout] = useMobileLayout();
   return (
     <Box
       height="100vh"
@@ -31,17 +33,17 @@ const GradientLayout: FC<GradientLayoutProps> = ({
       <Flex bg={`${color}.600`} padding="40px" align="end">
         <Box padding="20px">
           <Image
-            boxSize="160px"
+            boxSize={mobileLayout ? "80px" : "160px"}
             boxShadow="2xl"
             borderRadius={roundImage ? "100%" : "3px"}
             src={imageSrc}
           />
         </Box>
-        <Box padding="20px" lineHeight="40px">
+        <Box padding="20px" lineHeight={mobileLayout ? "25px" : "40px"}>
           <Text fontSize="xs" fontWeight="bold" casing="uppercase">
             {subtitle}
           </Text>
-          <Text fontSize="6xl" fontWeight="bold">
+          <Text fontSize={mobileLayout ? "3xl" : "6xl"} fontWeight="bold">
             {title}
           </Text>
           <Text fontSize="xs">{description}</Text>
