@@ -39,7 +39,11 @@ const PlaylistId = ({ playlist, shared }: PlaylistServerSideProps) => {
         color={color}
         imageSrc={`https://picsum.photos/400?random=${playlist.id}`}
       >
-        <Box paddingX={mobileLayout ? "0px" : "40px"} overflowY="auto">
+        <Box
+          paddingX={mobileLayout ? "0px" : "40px"}
+          paddingBottom={mobileLayout ? "40px" : "0px"}
+          overflowY="auto"
+        >
           <SongsTable songs={playlist.songs} />
         </Box>
       </GradientLayout>

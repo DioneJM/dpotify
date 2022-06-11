@@ -5,8 +5,8 @@ export default () => (
     <Head />
     <body
       style={{
-        minHeight: "100vh",
-        overflow: "none",
+        maxHeight: "100vh",
+        overflow: "hidden",
       }}
     >
       <Main />

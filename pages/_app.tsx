@@ -6,6 +6,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import PlayerLayout from "../components/PlayerLayout";
 import { store } from "../lib/store";
+import Div100vh from "react-div-100vh";
 
 const theme = extendTheme({
   colors: {
@@ -36,21 +37,23 @@ const theme = extendTheme({
 });
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <ChakraProvider theme={theme}>
-      {/* @ts-ignore */}
-      <StoreProvider store={store}>
+    <Div100vh>
+      <ChakraProvider theme={theme}>
         {/* @ts-ignore */}
-        {Component.publicPage ? (
-          // @ts-ignore
-          <Component {...pageProps} />
-        ) : (
-          <PlayerLayout>
-            {/* @ts-ignore */}
+        <StoreProvider store={store}>
+          {/* @ts-ignore */}
+          {Component.publicPage ? (
+            // @ts-ignore
             <Component {...pageProps} />
-          </PlayerLayout>
-        )}
-      </StoreProvider>
-    </ChakraProvider>
+          ) : (
+            <PlayerLayout>
+              {/* @ts-ignore */}
+              <Component {...pageProps} />
+            </PlayerLayout>
+          )}
+        </StoreProvider>
+      </ChakraProvider>
+    </Div100vh>
   );
 };
 
