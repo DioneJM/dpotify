@@ -1,10 +1,21 @@
-import { Box, IconButton, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  IconButton,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { BsFillPlayFill } from "react-icons/bs";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { Song } from "@prisma/client";
 import { useStoreActions, useStoreState } from "easy-peasy";
 import { ApplicationState } from "../lib/store";
 import { secondsToMinutes } from "../lib/timeFormatter";
+import { useMobileLayout } from "../lib/hooks";
 
 const getNumberOfDaysString = (createdAtDate: Date) => {
   const daysSinceAdded: number =
@@ -28,6 +39,8 @@ const SongsTable = ({ songs = [] }) => {
     setActiveSong(activeSong ?? songs[0]);
     playSongs(songs);
   };
+  const [mobileLayout] = useMobileLayout();
+
   return (
     <Box bg="transparent" color="white">
       <Box padding="10px" marginBottom="20px">
@@ -40,17 +53,32 @@ const SongsTable = ({ songs = [] }) => {
           onClick={() => handlePlay()}
         />
       </Box>
-      <Table variant="unstyled">
+      <Table variant="unstyled" size={mobileLayout ? "sm" : "md"}>
         <Thead borderBottom="1px solid" borderColor="rgba(255,255,255,0.2)">
           <Tr>
             <Th>#</Th>
             <Th>Title</Th>
             <Th>Date Added</Th>
-            <Th>{<AiOutlineClockCircle />}</Th>
+            <Th>
+              {mobileLayout ? (
+                <Center>
+                  <AiOutlineClockCircle />
+                </Center>
+              ) : (
+                <AiOutlineClockCircle />
+              )}
+            </Th>
           </Tr>
         </Thead>
         <Tbody>
           {songs.map((song: Song, index) => {
+            const dateAdded: string = mobileLayout
+              ? getNumberOfDaysString(song.createdAt)
+              : `${song.createdAt.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })} (${getNumberOfDaysString(song.createdAt)})`;
             return (
               <Tr
                 sx={{
@@ -68,16 +96,12 @@ const SongsTable = ({ songs = [] }) => {
                 }
                 onClick={() => handlePlay(song)}
               >
-                <Th fontWeight="400">{index + 1}</Th>
-                <Th fontWeight="400">{song.name}</Th>
-                <Th fontSize="xs" fontWeight="300">
-                  {`${song.createdAt.toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })} (${getNumberOfDaysString(song.createdAt)})`}
-                </Th>
-                <Th fontWeight="300">{secondsToMinutes(song.duration)}</Th>
+                <Td fontSize="sm">{index + 1}</Td>
+                <Td fontSize="sm">{song.name}</Td>
+                <Td fontSize="sm" fontWeight="300">
+                  {dateAdded}
+                </Td>
+                <Td fontWeight="300">{secondsToMinutes(song.duration)}</Td>
               </Tr>
             );
           })}

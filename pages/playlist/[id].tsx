@@ -5,6 +5,7 @@ import GradientLayout from "../../components/GradientLayout";
 import SongsTable from "../../components/SongsTable";
 import BottomPlayer from "../../components/BottomPlayer";
 import { bottomPlayerHeight } from "../../components/PlayerLayout";
+import { useMobileLayout } from "../../lib/hooks";
 
 export interface PlaylistServerSideProps {
   playlist: Playlist & { songs: Song[] };
@@ -28,6 +29,7 @@ const getBGColor = (id) => {
 
 const PlaylistId = ({ playlist, shared }: PlaylistServerSideProps) => {
   const color = getBGColor(playlist.id);
+  const [mobileLayout] = useMobileLayout();
   return (
     <>
       <GradientLayout
@@ -37,7 +39,7 @@ const PlaylistId = ({ playlist, shared }: PlaylistServerSideProps) => {
         color={color}
         imageSrc={`https://picsum.photos/400?random=${playlist.id}`}
       >
-        <Box paddingX="40px" overflowY="auto">
+        <Box paddingX={mobileLayout ? "0" : "40px"} overflowY="auto">
           <SongsTable songs={playlist.songs} />
         </Box>
       </GradientLayout>

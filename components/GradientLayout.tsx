@@ -31,9 +31,9 @@ const GradientLayout: FC<GradientLayoutProps> = ({
       paddingBottom={bottomPlayerHeight}
     >
       <Flex bg={`${color}.600`} padding="40px" align="end">
-        <Box padding="20px">
+        <Box padding={mobileLayout ? "0px" : "20px"}>
           <Image
-            boxSize={mobileLayout ? "80px" : "160px"}
+            boxSize={mobileLayout ? "120px" : "160px"}
             boxShadow="2xl"
             borderRadius={roundImage ? "100%" : "3px"}
             src={imageSrc}
