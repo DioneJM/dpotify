@@ -2,7 +2,10 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 export default () => (
   <Html>
-    <Head />
+    <Head>
+      <title>dpotify</title>
+      <meta name="description" content="monoffe sounds" />
+    </Head>{" "}
     <body
       style={{
         maxHeight: "100vh",
