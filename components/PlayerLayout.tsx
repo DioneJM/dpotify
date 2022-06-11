@@ -1,22 +1,27 @@
 import { Box } from "@chakra-ui/layout";
 import Sidebar from "./Sidebar";
 import BottomPlayer from "./BottomPlayer";
+import { useMobileLayout } from "../lib/hooks";
 
-export const sidebarWidth = "250px";
+export const defaultSidebarWidth = "250px";
 export const bottomPlayerHeight = "100px";
 
 const PlayerLayout = ({ children }) => {
+  const [mobileLayout] = useMobileLayout();
+  const sidebarWidth = mobileLayout ? 0 : defaultSidebarWidth;
   return (
     <Box width="100vw" height="100vh">
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        width={sidebarWidth}
-        height="100vh"
-      >
-        <Sidebar />
-      </Box>
+      {!mobileLayout && (
+        <Box
+          position="absolute"
+          top="0"
+          left="0"
+          width={defaultSidebarWidth}
+          height="100vh"
+        >
+          <Sidebar />
+        </Box>
+      )}
       <Box
         maxHeight={"200px"}
         marginLeft={sidebarWidth}

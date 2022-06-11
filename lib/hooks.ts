@@ -1,6 +1,7 @@
 import useSWR from "swr";
 import { User, Playlist } from "@prisma/client";
 import fetcher from "./fetcher";
+import { useMediaQuery } from "@chakra-ui/react";
 
 export const useMe = () => {
   const { data, error } = useSWR<User & { playlistCount: number }>(
@@ -27,3 +28,5 @@ export const usePlaylist = (): {
     isError: error,
   };
 };
+
+export const useMobileLayout = () => useMediaQuery("(max-width: 950px)");
